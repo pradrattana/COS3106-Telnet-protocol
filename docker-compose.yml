@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  telnet-server:
+    container_name: my-telnet-server
+    build: ./server
+    env_file: ".env"
+    ports:
+      - "${PORT}:23"
+    restart: always
+    networks:
+      - telnet-net
+
+  telnet-client:
+    container_name: my-telnet-client
+    build: ./client
+    stdin_open: true
+    tty: true
+    networks:
+      - telnet-net
+
+networks:
+  telnet-net:
